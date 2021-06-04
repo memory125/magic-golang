@@ -1,2 +1,2 @@
 # magic-golang
-Golang learning...
+Golang learning and samples.
