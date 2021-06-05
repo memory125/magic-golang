@@ -55,6 +55,16 @@ const (
 	d3, d4 = iota + 1, iota + 2          // d3: 2 = 1 + 1, d2: 3 = 1 + 2
 )
 
+// 定义数量级
+const (
+	_ = iota
+	KB = 1 << (10 * iota)             // 2的10 * 1次方 = 1024
+	MB = 1 << (10 * iota)             // 2的10 * 2次方 = 1024 * 1024
+	GB = 1 << (10 * iota)             // 2的10 * 3次方 = 1024 * 1024 * 1024
+	TB = 1 << (10 * iota)             // 2的10 * 4次方 = 1024 * 1024 * 1024 * 1024
+	PB = 1 << (10 * iota)             // 2的10 * 5次方 = 1024 * 1024 * 1024 * 1024 * 1024
+)
+
 func main()  {
 	fmt.Println("============ const 1 ===============")
 	fmt.Println(statusOk)
@@ -119,4 +129,18 @@ func main()  {
 	fmt.Println("d3", d3)
 	fmt.Println("d4", d4)
 
+
+	/*
+		KB 1024
+		MB 1048576
+		GB 1073741824
+		TB 1099511627776
+		PB 1125899906842624
+	 */
+	fmt.Println("============ const 7 ===============")
+	fmt.Println("KB", KB)
+	fmt.Println("MB", MB)
+	fmt.Println("GB", GB)
+	fmt.Println("TB", TB)
+	fmt.Println("PB", PB)
 }
