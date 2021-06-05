@@ -6,6 +6,7 @@ import "fmt"
 	声明变量:
 	格式: var 变量名 类型
 */
+// 这里是全局变量
 var name1 string
 var age1 int
 var isOk1 bool
@@ -13,7 +14,7 @@ var isOk1 bool
 /*
 	批量声明
  */
-
+// 全局变量
 var (
 	name2 string             // ”“
 	age2 int                 // 0
@@ -37,11 +38,14 @@ var (
             %p，打印地址
  */
 
-func main()  {
-	var a = 1
-	var b = 2
-	fmt.Println(a + b)
+// Go语言中推荐使用驼峰命名法: 可参考下述方式
+// 推荐第二种方式，和Java中的类似
+var student_name string
+var studentName string
+var StudentName string
 
+func main()  {
+	// 全局变量赋值
 	name1 = "David"
 	age1 = 12
 	isOk1 = true
@@ -52,7 +56,7 @@ func main()  {
 	fmt.Printf("age: %d\n", age1)
 	fmt.Printf("isOk: %v\n", isOk1)
 
-
+	// 全局变量赋值
 	name2= "Jack"
 	age2 = 18
 	isOk2 = false
@@ -61,4 +65,17 @@ func main()  {
 	fmt.Printf("age: %d\n", age2)
 	fmt.Printf("isOk: %v\n", isOk2)
 
+	// 局部变量
+	// 声明同时并赋值
+	var s1 string = "Joke"
+	fmt.Println(s1)
+
+	// 类型推导
+	var a = 1
+	var b = 2
+	fmt.Println(a + b)
+
+	// 简短变量声明
+	s2 := "Kevin"
+	fmt.Println(s2)
 }
