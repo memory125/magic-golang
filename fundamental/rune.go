@@ -3,7 +3,11 @@ package main
 import "fmt"
 
 func main()  {
+	fmt.Println("================= traversalString ==============")
 	traversalString()
+
+	fmt.Println("================= modifyString ==============")
+	modifyString()
 }
 
 // 遍历字符串
@@ -23,4 +27,18 @@ func traversalString() {
 		fmt.Printf("%v(%c) ", r, r)
 	}
 	fmt.Println()
+}
+
+// 修改字符串
+func modifyString()  {
+	s1 := "Hello"
+	s2 := []rune(s1)             // 把字符串s1强制转换成了rune切片，此时： s2 ====> ['H', 'e', 'l', 'l', 'o']
+	s2[0] = 'W'                  // s2 ====> ['W', 'e', 'l', 'l', 'o']
+
+	/*
+		Hello
+		Wello
+	 */
+	fmt.Println(s1)
+	fmt.Println(string(s2))
 }
