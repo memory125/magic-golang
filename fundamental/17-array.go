@@ -42,7 +42,59 @@ func main()  {
 	fmt.Printf("len a4: %d, a4: %v\n", len(a4), a4)
 
 	// 数组遍历
+	/*
+		1
+		0
+		0
+		0
+		2
+	 */
 	for _, v := range a4{
 		fmt.Println(v)
 	}
+
+	// 字符串数组
+	/*
+		len(a5) = 8
+		北京
+		上海
+		广州
+		深圳
+		西安
+		成都
+		重庆
+		武汉
+	 */
+	a5 := [...]string{"北京", "上海", "广州", "深圳", "西安", "成都", "重庆", "武汉"}
+	fmt.Printf("len(a5) = %d\n", len(a5))
+	for _, v := range a5 {
+		fmt.Println(v)
+	}
+
+	// 多维数组
+	var a6[3][2] int
+	a6 = [3][2]int {
+		[2]int {1, 2},
+		[2]int {3, 4},
+		[2]int {5, 6},
+	}
+	fmt.Println(a6)
+
+	// 多维数组遍历: 必须多次遍历
+	for _, v1 := range a6{
+		fmt.Println(v1)
+		for _, v2 := range v1 {
+			fmt.Println(v2)
+		}
+	}
+
+	// 数组是值类型
+	a7 := [3]int {1, 2, 3}
+	a8 := a7
+	a8[1] = 20
+
+	/*
+		[1 2 3] [1 20 3]
+	 */
+	fmt.Println(a7, a8)
 }
