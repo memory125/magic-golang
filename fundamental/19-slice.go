@@ -65,4 +65,29 @@ func main()  {
 		[1 2 3 4 5 6 7 8 9 10] [4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20] [1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20]
 	 */
 	fmt.Println(s4, s5, s6)
+	/*
+	   len(s4) = 10, cap(s4) = 20
+	   len(s5) = 17, cap(s5) = 17
+	   len(s6) = 20, cap(s6) = 20
+	 */
+	fmt.Printf("len(s4) = %d, cap(s4) = %d\n", len(s4), cap(s4))
+	fmt.Printf("len(s5) = %d, cap(s5) = %d\n", len(s5), cap(s5))
+	fmt.Printf("len(s6) = %d, cap(s6) = %d\n", len(s6), cap(s6))
+
+	s7 := s5[4:]
+	/*
+		[8 9 10 11 12 13 14 15 16 17 18 19 20]
+		len(s7) = 13, cap(s7) = 13
+	 */
+	fmt.Println(s7)
+	fmt.Printf("len(s7) = %d, cap(s7) = %d\n", len(s7), cap(s7))
+
+	/*
+		s3 =  [1 2 3 4 5 6 7 8 9 10]
+		s3 =  [1 2 3 4 5 6 7 8 9 100]
+	 */
+	// 切片是引用类型，都指向了底层的一个具体的数组
+	fmt.Println("s3 = ", s3)
+	a1[9] = 100
+	fmt.Println("s3 = ", s3)
 }
