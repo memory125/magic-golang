@@ -32,4 +32,12 @@ func pointerDemo()  {
 	 m = 20
 	 */
 	fmt.Printf("m = %v\n", m)
+
+	// new：申请内存
+	var a = new(int)
+	*a = 100
+	/*
+		&a = 0xc00000a0a8, *a = 100
+	 */
+	fmt.Printf("&a = %p, *a = %d\n", a, *a)
 }
