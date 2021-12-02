@@ -4,6 +4,7 @@ import "fmt"
 
 func main()  {
 	appendDemo()
+	sliceDemo()
 }
 
 func appendDemo()  {
@@ -39,4 +40,21 @@ func appendDemo()  {
 		a =  [1 7 9 11 13 15 17 19 21 23 25 27 29 27 29]
 	 */
 	fmt.Println("a = ", a)
+}
+
+func sliceDemo()  {
+	fmt.Println("================= sliceDemo =================")
+	var a = make([]int, 5, 10)   // 创建切片，长度为5，容量为10
+	/*
+		before a = [0 0 0 0 0]
+	 */
+	fmt.Printf("before a = %v\n", a)
+	for i := 0; i < 10; i++ {
+		a = append(a, i)
+	}
+
+	/*
+		after a = [0 0 0 0 0 0 1 2 3 4 5 6 7 8 9]
+	 */
+	fmt.Printf("afetr a = %v\n", a)
 }
