@@ -34,6 +34,12 @@ func pointerDemo()  {
 	fmt.Printf("m = %v\n", m)
 
 	// new：申请内存
+	/*
+	  make和new的区别
+	  1. make和new都是用来申请内存的
+	  2. new很少用，一般用来给基本数据类型申请内存，如`string`，`int`，new返回的是对应类型的指针(*string, *int)
+	  3. make是用来给`slice`，`map`，`chan`申请内存的，make函数返回的是对应的这三个类型本身
+	 */
 	var a = new(int)
 	*a = 100
 	/*
