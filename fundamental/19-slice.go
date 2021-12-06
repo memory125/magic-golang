@@ -5,6 +5,16 @@ import "fmt"
 // 切片：引用类型
 func main()  {
 	// 定义切片
+	/*
+	   切片不存值，它就像一个框，去底层数组框值
+	   切片：指针，长度，容量
+	   切片的扩容策略：
+	       1. 首先判断，如果新申请容量(cap)大于2倍的旧容量(old.cap)，最终容量(new cap)就是新申请的容量(cap)
+	       2. 否则判断，如果旧切片的长度小于1024，则最终容量(new cap)就是旧容量(old.cap)的2倍，即(new cap = double old.cap)
+	       3. 否则判断，如果旧切片长度大于等于1024，则最终容量(new cap)从旧容量(old.cap)开始循环增加原来的1/4，即(new cap = old.cap, for {new cap += new cap / 4})
+		直到最终容量(new cap)大于等于新申请的容量(cap)，即(new cap >= cap)
+	       4. 如果最终容量(new cap)计算值溢出，则最终容量(new cap)就是新申请容量(cap)
+	 */
 	var s1 [] int
 	var s2 [] string
 
