@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // 闭包
 
@@ -25,6 +27,14 @@ func test3(f func(int, int), m, n int) func() {
 	return ret
 }
 
+// 另外一个示例
+func addr(x int) func(int) int {
+	return func(y int) int {
+		x += y
+		return x
+	}
+}
+
 
 func main()  {
 	/*
@@ -34,4 +44,11 @@ func main()  {
 	 */
 	tmp := test3(test2, 100, 200)
 	test1(tmp)
+
+	/*
+		Ret2 is 300
+	*/
+	ret := addr(100)
+	ret2 := ret(200)
+	fmt.Printf("Ret2 is %v \n", ret2)
 }
