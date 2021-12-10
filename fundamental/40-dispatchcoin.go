@@ -48,55 +48,64 @@ func dispatchCoin() int {
 		fmt.Println("byte(u), byte(U)", byte('u'), byte('U'))
 		for j := 0; j < len(user); j++ {
 			fmt.Println("user[j]", user[j])
-			if user[j] == byte('e') || user[j] == byte('E') {
+			/*
+				第一种方式：if...else
+			 */
+			//if user[j] == byte('e') || user[j] == byte('E') {
+			//	distribution[users[i]] += 1
+			//	left -= 1
+			//} else if user[j] == byte('i') || user[j] == byte('I') {
+			//	distribution[users[i]] += 2
+			//	left -= 2
+			//} else if user[j] == byte('o') || user[j] == byte('O') {
+			//	distribution[users[i]] += 3
+			//	left -= 3
+			//} else if user[j] == byte('u') || user[j] == byte('U') {
+			//	distribution[users[i]] += 4
+			//	left -= 4
+			//}
+			//
+			//if left <= 0 {
+			//	fmt.Println("金币不足！！！！")
+			//	return 0
+			//}
+
+			/*
+				第二种方式：switch...case
+			 */
+			switch user[j] {
+			case byte('e'), byte('E'):
 				distribution[users[i]] += 1
+				// 2.2 还要记录剩下的金币数
 				left -= 1
-			} else if user[j] == byte('i') || user[j] == byte('I') {
+				break
+
+			case byte('i'), byte('I'):
 				distribution[users[i]] += 2
 				left -= 2
-			} else if user[j] == byte('o') || user[j] == byte('O') {
+				break
+
+			case byte('o'), byte('O'):
 				distribution[users[i]] += 3
 				left -= 3
-			} else if user[j] == byte('u') || user[j] == byte('U') {
+				break
+
+			case byte('u'), byte('U'):
 				distribution[users[i]] += 4
 				left -= 4
+				break
+
+			default:
+				fmt.Println(user[j])
+				break
 			}
 
 			if left <= 0 {
 				fmt.Println("金币不足！！！！")
 				return 0
 			}
-
-			//switch user[j] {
-			//case byte('e'):
-			//case byte('E'):
-			//	distribution[users[i]] += 1
-			//	// 2.2 还要记录剩下的金币数
-			//	left -= 1
-			//	//break
-			//
-			//case byte('i'):
-			//case byte('I'):
-			//	distribution[users[i]] += 2
-			//	left -= 2
-			//	//break
-			//
-			//case byte('o'):
-			//case byte('O'):
-			//	distribution[users[i]] += 3
-			//	left -= 4
-			//	//break
-			//
-			//case byte('u'):
-			//case byte('U'):
-			//	distribution[users[i]] += 4
-			//	left -= 4
-			//	//break
-			//
-			//	default:
-			//	continue
-			}
 		}
+	}
 
 
 	// 3. 第2步完成之后就能得到最终每个人分的金币数和剩余金币数
