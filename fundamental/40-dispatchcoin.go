@@ -19,21 +19,57 @@ var (
 	users = []string{
 		"Matthew", "Sarah", "Augustus", "Heidi", "Emilie", "Peter", "Giana", "Adriano", "Aaron", "Elizabeth",
 	}
-	distribution = make(map[string]int, len(users))
+	distribution1 = make(map[string]int, len(users))
+	distribution2 = make(map[string]int, len(users))
 )
 
 func main() {
-	left := dispatchCoin()
-	fmt.Println("剩下：", left)
+	left1, left2 := dispatchCoin()
+	fmt.Println("剩下left1, left2：", left1, left2)
 }
 
-func dispatchCoin() int {
-	left := coins
-	if left <= 0 {
+func dispatchCoin() (int, int) {
+	left1 := coins
+	left2 := coins
+	if left1 <= 0 {
 		fmt.Println("金币不足！！！！")
-		return 0
+		return 0, 0
 	}
-	
+
+	if left2 <= 0 {
+		fmt.Println("金币不足！！！！")
+		return 0, 0
+	}
+
+	// 使用for...range实现
+	for _, name := range users {
+		for _, ch := range name {
+			switch ch {
+			case 'e', 'E':
+				distribution1[name] += 1
+				left1 -= 1
+
+			case 'i', 'I':
+				distribution1[name] += 2
+				left1 -= 2
+
+			case 'o', 'O':
+				distribution1[name] += 3
+				left1 -= 3
+
+			case 'u', 'U':
+				distribution1[name] += 4
+				left1 -= 4
+			}
+
+			if left1 <= 0 {
+				fmt.Println("金币不足！！！！")
+				return 0, 0
+			}
+		}
+	}
+
+	// 使用for...i实现
 	// 1. 依次拿到姓名
 	for i := 0; i < len(users); i++ {
 		// 2. 拿到一个人的名字，根据分金币的规则分金币
@@ -41,7 +77,7 @@ func dispatchCoin() int {
 		user := make([]byte, 0, len(users[i]))
 		user = append(user, users[i]...)
 		fmt.Printf("user = %s\n", user)
-		distribution[users[i]] = 0
+		distribution2[users[i]] = 0
 		fmt.Println("byte(e), byte(E)", byte('e'), byte('E'))
 		fmt.Println("byte(i), byte(I)", byte('i'), byte('I'))
 		fmt.Println("byte(o), byte(O)", byte('o'), byte('O'))
@@ -52,16 +88,16 @@ func dispatchCoin() int {
 				第一种方式：if...else
 			 */
 			//if user[j] == byte('e') || user[j] == byte('E') {
-			//	distribution[users[i]] += 1
+			//	distribution2[users[i]] += 1
 			//	left -= 1
 			//} else if user[j] == byte('i') || user[j] == byte('I') {
-			//	distribution[users[i]] += 2
+			//	distribution2[users[i]] += 2
 			//	left -= 2
 			//} else if user[j] == byte('o') || user[j] == byte('O') {
-			//	distribution[users[i]] += 3
+			//	distribution2[users[i]] += 3
 			//	left -= 3
 			//} else if user[j] == byte('u') || user[j] == byte('U') {
-			//	distribution[users[i]] += 4
+			//	distribution2[users[i]] += 4
 			//	left -= 4
 			//}
 			//
@@ -75,24 +111,24 @@ func dispatchCoin() int {
 			 */
 			switch user[j] {
 			case byte('e'), byte('E'):
-				distribution[users[i]] += 1
+				distribution2[users[i]] += 1
 				// 2.2 还要记录剩下的金币数
-				left -= 1
+				left2 -= 1
 				break
 
 			case byte('i'), byte('I'):
-				distribution[users[i]] += 2
-				left -= 2
+				distribution2[users[i]] += 2
+				left2 -= 2
 				break
 
 			case byte('o'), byte('O'):
-				distribution[users[i]] += 3
-				left -= 3
+				distribution2[users[i]] += 3
+				left2 -= 3
 				break
 
 			case byte('u'), byte('U'):
-				distribution[users[i]] += 4
-				left -= 4
+				distribution2[users[i]] += 4
+				left2 -= 4
 				break
 
 			default:
@@ -100,9 +136,9 @@ func dispatchCoin() int {
 				break
 			}
 
-			if left <= 0 {
+			if left2 <= 0 {
 				fmt.Println("金币不足！！！！")
-				return 0
+				return 0, 0
 			}
 		}
 	}
@@ -110,6 +146,7 @@ func dispatchCoin() int {
 
 	// 3. 第2步完成之后就能得到最终每个人分的金币数和剩余金币数
 
-	fmt.Println("distribution----", distribution)
-	return left
+	fmt.Println("distribution1----", distribution1)
+	fmt.Println("distribution2----", distribution2)
+	return left1, left2
 }
