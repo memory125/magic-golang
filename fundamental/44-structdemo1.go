@@ -46,4 +46,25 @@ func main()  {
 	 */
 	fmt.Printf("Type: %T\n", p2)
 	fmt.Printf("Value: %x\n", p2)
+
+	// 结构体初始化
+	// key-value初始化
+	var p3 = Person2{
+		name: "Jim",
+		gender: "Male",
+	}
+	/*
+	    p3: main.Person2{name:"Jim", gender:"Male"}
+	 */
+	fmt.Printf("p3: %#v\n", p3)
+
+	// 使用值列表的形式初始化，值的顺序要和结构体定义时成员的顺序一致
+	p4 := Person2{
+		"Clark",
+		"Male",
+	}
+	/*
+	    p4: main.Person2{name:"Clark", gender:"Male"}
+	 */
+	fmt.Printf("p4: %#v\n", p4)
 }
