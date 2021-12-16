@@ -10,6 +10,11 @@ import (
 // 1. 序列化：把Go语言中的结构体变量  ----> json格式的字符串
 // 2. 反序列化：json格式的字符串  ----> Go语言中能够识别的结构体变量
 
+/*
+   注意事项：
+    1. 结构体内部的字段首字母要大写！！！不大写外部访问不到
+    2. 反序列化时要传递指针！！！
+ */
 type personInfo1 struct {
 	Name string `json:"name" db:"name" ini:"name"`
 	Age int     `json:"age" db:"age" ini:"age"`
