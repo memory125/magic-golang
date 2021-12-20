@@ -23,7 +23,8 @@ type person1 struct {
 
 }
 
-func (a cat1) bark()  {
+// 使用值接收者实现了接口的所有方法
+func (c cat1) bark()  {
 	fmt.Println("喵喵喵~~~~~")
 }
 
