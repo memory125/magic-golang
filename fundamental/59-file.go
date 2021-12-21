@@ -29,7 +29,7 @@ func main()  {
 		}
 		fmt.Printf("%d bytes has read out!\n", b)
 		fmt.Println(string(tmp[:b]))
-		if b == 0 {
+		if b < 128 {
 			return
 		}
 	}
