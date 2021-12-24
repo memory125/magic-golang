@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"path"
 	"runtime"
 )
 
@@ -17,11 +18,14 @@ func main()  {
 
 	/*
 		main.main
-		D:/project/go/gopath/src/code.wing.com/fundamental/63-runtimecaller.go
-		12
+		63-runtimecaller.go
+		13
 	 */
+	// 调用的函数名
 	funcName := runtime.FuncForPC(pc).Name()
 	fmt.Println(funcName)
-	fmt.Println(file)
+	// 文件名
+	fmt.Println(path.Base(file))
+	// 行号
 	fmt.Println(line)
 }
