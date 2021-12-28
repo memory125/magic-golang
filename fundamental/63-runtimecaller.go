@@ -7,7 +7,7 @@ import (
 )
 
 // runtime caller
-
+// 主要用来获取函数调用信息：函数名，文件(名)，行号等
 func main()  {
 	// 调用当前文件
 	pc, file, line, ok := runtime.Caller(0)

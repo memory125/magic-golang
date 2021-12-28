@@ -10,6 +10,7 @@ type Student struct {
 	gender string
 	grade int
 }
+
 // 构造函数：约定成俗new开头
 // 返回的是结构体还是结构体指针
 // 当结构体比较大的时候尽量返回结构体指针，减少程序的内容开销
