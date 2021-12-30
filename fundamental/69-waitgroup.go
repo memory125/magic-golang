@@ -9,7 +9,7 @@ import (
 
 // wait group
 
-var wg sync.WaitGroup
+var wg sync.WaitGroup         // 跟goroutine操作相关
 
 func frand()  {
 	rand.Seed(time.Now().UnixNano())     // 随机数种子
