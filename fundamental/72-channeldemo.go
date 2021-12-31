@@ -10,6 +10,7 @@ import (
 // 声明连个channel
 
 var wg2 sync.WaitGroup
+// var once sync.Once
 
 func generateData(ch1 chan int)  {
 	defer wg2.Done()
@@ -29,6 +30,10 @@ func receiveData(ch1, ch2 chan int)  {
 		ch2 <- x * x
 	}
 	close(ch2)
+	// // 如果有多个goroutine的时候，需要确保某个操作只执行一次
+	//once.Do(func() {
+	//	close(ch2)
+	//})
 }
 
 func main()  {
