@@ -17,7 +17,7 @@ func main() {
 	testInterface(s)
 	/*
 		Type: []interface {}, Value: []interface {}{1, 3, 5, 7, 9, 11, 13, 15, 17, 19}.
-		备注：s是一个切片
+		备注：s是一个interface类型的切片
 	*/
 	testInterface(s...)
 }
