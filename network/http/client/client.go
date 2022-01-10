@@ -15,6 +15,8 @@ func main() {
 		return
 	}
 
+	defer resp.Body.Close()
+
 	bytesRead, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Printf("Read response body failed, error is %v.\n", err)
