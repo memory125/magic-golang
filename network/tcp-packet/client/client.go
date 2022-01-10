@@ -1,8 +1,9 @@
-package client
+package main
 
 import (
 	"fmt"
 	"net"
+	"strconv"
 )
 
 // tcp - 黏包
@@ -15,7 +16,7 @@ func main() {
 	}
 	defer conn.Close()
 	for i := 0; i < 20; i++ {
-		msg := `Hello, Hello. How are you?`
+		msg := "Hello, Hello. How are you? + " + strconv.Itoa(i)
 		conn.Write([]byte(msg))
 	}
 }
