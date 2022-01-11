@@ -75,3 +75,19 @@ func TestSplitStrByStructMapGroup(t *testing.T) {
 		})
 	}
 }
+
+// benchmark 基准测试
+/*
+	goos: windows
+	goarch: amd64
+	pkg: wing.com/magic-golang/unittest/splitstring
+	cpu: Intel(R) Core(TM) i5-8265U CPU @ 1.60GHz
+	BenchmarkSplitStr
+	BenchmarkSplitStr-8   	 4348641	       302.6 ns/op
+	PASS
+*/
+func BenchmarkSplitStr(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SplitStr("桃花庵里桃花仙", "桃")
+	}
+}
