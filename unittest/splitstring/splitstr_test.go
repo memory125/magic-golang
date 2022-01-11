@@ -1,6 +1,7 @@
 package splitstring
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -9,10 +10,68 @@ import (
 /*
   测试函数：必须以Test开头，参数也必须是 *testing.T类型
 */
-func TestSplitStr(t *testing.T) {
+func TestSplitStrBySingleInput(t *testing.T) {
+	fmt.Println("=======TestSplitStrBySingleInput======")
 	ret := SplitStr("babcbef", "b")
 	expect := []string{"", "a", "c", "ef"}
 	if !reflect.DeepEqual(ret, expect) {
 		t.Errorf("Expected value: %v, but got the value %v.\n", expect, ret)
+	}
+}
+
+// 将测试用力封装到slice结构体中
+func TestSplitStrByStructSliceGroup(t *testing.T) {
+	fmt.Println("=======TestSplitStrByStructSliceGroup======")
+	// 将要测试的所有情况抽象为结构体
+	type TestUnit struct {
+		input    string
+		sep      string
+		expected []string
+	}
+
+	// 使用slice统一管理测试用例
+	structSliceGroup := []TestUnit{
+		{"babcbef", "b", []string{"", "a", "c", "ef"}},
+		{"abcdef", "b", []string{"a", "cdef"}},
+		{"a:b:c:d", ":", []string{"a", "b", "c", "d"}},
+		{"123456789", "456", []string{"123", "789"}},
+		{"桃花坞里桃花庵", "桃", []string{"", "花坞里", "花庵"}},
+	}
+
+	for _, scg := range structSliceGroup {
+		got := SplitStr(scg.input, scg.sep)
+		if !reflect.DeepEqual(got, scg.expected) {
+			t.Errorf("Expected value: #%v, but got the value %#v.\n", scg.expected, got)
+		}
+	}
+}
+
+// 将测试用力封装到map中
+func TestSplitStrByStructMapGroup(t *testing.T) {
+	fmt.Println("=======TestSplitStrByStructMapGroup======")
+	// 将要测试的所有情况抽象为结构体
+	type TestUnit struct {
+		input    string
+		sep      string
+		expected []string
+	}
+
+	// 使用map统一管理测试用例
+	structMapGroup := map[string]TestUnit{
+		"case 1": {"babcbef", "b", []string{"", "a", "c", "ef"}},
+		"case 2": {"abcdef", "b", []string{"a", "cdef"}},
+		"case 3": {"a:b:c:d", ":", []string{"a", "b", "c", "d"}},
+		"case 4": {"123456789", "456", []string{"123", "789"}},
+		"case 5": {"桃花坞里桃花庵", "桃", []string{"", "花坞里", "花庵"}},
+	}
+
+	for name, smg := range structMapGroup {
+		// 调用testing.T中的Run方法测试
+		t.Run(name, func(t *testing.T) {
+			got := SplitStr(smg.input, smg.sep)
+			if !reflect.DeepEqual(got, smg.expected) {
+				t.Errorf("Expected value: #%v, but got the value %#v.\n", smg.expected, got)
+			}
+		})
 	}
 }
