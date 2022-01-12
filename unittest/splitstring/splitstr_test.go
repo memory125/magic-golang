@@ -8,7 +8,11 @@ import (
 
 // 单元测试
 /*
-  测试函数：必须以Test开头，参数也必须是 *testing.T类型
+  测试函数：
+	  1. 必须以Test开头，参数也必须是 *testing.T类型
+		a. 接口测试
+        b. 覆盖率等
+	  2. 测试文件必须以*_test.go格式。
 */
 func TestSplitStrBySingleInput(t *testing.T) {
 	fmt.Println("=======TestSplitStrBySingleInput======")
@@ -77,6 +81,18 @@ func TestSplitStrByStructMapGroup(t *testing.T) {
 }
 
 // benchmark 基准测试
+/*
+测试函数：
+    1. 必须以Test开头，参数也必须是 *testing.B类型
+      a. benchmark基准测试
+      b. memory基准测试，如：申请了多少次内存
+      c. 性能比较
+	  d. 并行测试，示例如下：
+			b.RunParallel(func(pb *testing.PB) {
+				// 测试代码
+			})
+    2. 测试文件必须以*_test.go格式。
+*/
 /*
 	goos: windows
 	goarch: amd64
