@@ -42,7 +42,8 @@ func initDB() (err error) {
 }
 
 // 查询单个
-func query(queryStr string, args ...interface{}) {
+func querySingleRow(queryStr string, args ...interface{}) {
+	fmt.Println("===========querySingleRow============")
 	var u user
 
 	row := db.QueryRow(queryStr, args...)
@@ -55,6 +56,27 @@ func query(queryStr string, args ...interface{}) {
 	fmt.Printf("user information: %#v\n", u)
 }
 
+// 查询多个
+func queryMultiRows(queryStr string, args ...interface{}) {
+	fmt.Println("===========queryMultiRows============")
+	rows, err := db.Query(queryStr, args...)
+	if err != nil {
+		fmt.Printf("query multi rows failed, error is %v.\n", err)
+		return
+	}
+
+	for rows.Next() {
+		var u user
+		err = rows.Scan(&u.id, &u.name, &u.age)
+		if err != nil {
+			fmt.Printf("row scan failed, error is %v.\n", err)
+			return
+		}
+
+		fmt.Printf("user information: %#v\n", u)
+	}
+}
+
 func main() {
 	err := initDB()
 	if err != nil {
@@ -62,8 +84,14 @@ func main() {
 	}
 
 	fmt.Println("Connect to database success...")
-	str := "select id, name, age from user where id = ?;"
-	query(str, 1)
-	query(str, 3)
-	query(str, 5)
+	str1 := "select id, name, age from user where id = ?;"
+	querySingleRow(str1, 1)
+	querySingleRow(str1, 3)
+	querySingleRow(str1, 5)
+
+	str2 := "select id, name, age from user where id > ?;"
+
+	queryMultiRows(str2, 2)
+	queryMultiRows(str2, 4)
+	queryMultiRows(str2, 6)
 }
