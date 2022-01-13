@@ -11,7 +11,7 @@ import (
 /*
 步骤：
    1. 下载mysql driver：go get -u github.com/go-sql-driver/mysql
-      dataSource格式：username:password@tcp(database server ip:port)/database name
+      dataSource格式：“username:password@tcp(database-server-ip:port)/database-name”
    2. 创建go文件，调用database/sql包面的接口
 */
 
