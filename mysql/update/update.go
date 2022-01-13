@@ -6,7 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql" // init()
 )
 
-// MySQL - Insert插入示例
+// MySQL - Update更新示例
 
 // 全局变量
 var db *sql.DB
@@ -41,20 +41,20 @@ func initDB() (err error) {
 	return
 }
 
-// 插入数据
-func insertValues(sqlStr string, args ...interface{}) {
-	fmt.Println("===========insertValues============")
+// 更新数据
+func updateValues(sqlStr string, args ...interface{}) {
+	fmt.Println("===========updateValues============")
 	ret, err := db.Exec(sqlStr, args...)
 	if err != nil {
-		fmt.Printf("insert failed, err:%v\n", err)
+		fmt.Printf("update data failed, err:%v\n", err)
 		return
 	}
-	theID, err := ret.LastInsertId() // 新插入数据的id
+	n, err := ret.RowsAffected() // 操作影响的行数
 	if err != nil {
-		fmt.Printf("get lastinsert ID failed, err:%v\n", err)
+		fmt.Printf("get RowsAffected failed, err:%v\n", err)
 		return
 	}
-	fmt.Printf("insert success, the id is %d.\n", theID)
+	fmt.Printf("update success, affected rows:%d\n", n)
 }
 
 func main() {
@@ -65,10 +65,10 @@ func main() {
 
 	fmt.Println("Connect to database success...")
 
-	sqlStr := "insert into user(name, age) values (?,?)"
+	sqlStr := "update user set age=? where id = ?"
 	// 创建一个interface类型的切片，存储要相关字段的值
 	args := make([]interface{}, 2)
-	args[0] = "Jone"
-	args[1] = 32
-	insertValues(sqlStr, args...)
+	args[0] = 35
+	args[1] = 7
+	updateValues(sqlStr, args...)
 }
