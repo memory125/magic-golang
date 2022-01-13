@@ -65,6 +65,9 @@ func queryMultiRows(queryStr string, args ...interface{}) {
 		return
 	}
 
+	// 非常重要，关闭rows释放持有的数据库连接
+	defer rows.Close()
+
 	for rows.Next() {
 		var u user
 		err = rows.Scan(&u.id, &u.name, &u.age)
