@@ -9,7 +9,6 @@ import (
 /*
    flag: 获取命令行参数
 */
-
 func main() {
 	// 创建标志位参数
 	// 这里name返回的是*string, age返回的是*int
