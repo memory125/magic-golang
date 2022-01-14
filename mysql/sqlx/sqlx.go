@@ -56,6 +56,51 @@ func sqlxQueryMulti(sqlStr string, args interface{}) {
 	fmt.Printf("User Information: %v\n", u)
 }
 
+// sqlx 插入数据
+func insertRow(sqlStr string, args ...interface{}) {
+	ret, err := db.Exec(sqlStr, args...)
+	if err != nil {
+		fmt.Printf("Insert data failed, err:%v\n", err)
+		return
+	}
+	theID, err := ret.LastInsertId() // 新插入数据的id
+	if err != nil {
+		fmt.Printf("Get lastinsert ID failed, err:%v\n", err)
+		return
+	}
+	fmt.Printf("Insert data success, the id is %d.\n", theID)
+}
+
+// 更新数据
+func updateRow(sqlStr string, args ...interface{}) {
+	ret, err := db.Exec(sqlStr, args...)
+	if err != nil {
+		fmt.Printf("Update data failed, err:%v\n", err)
+		return
+	}
+	n, err := ret.RowsAffected() // 操作影响的行数
+	if err != nil {
+		fmt.Printf("Get RowsAffected failed, err:%v\n", err)
+		return
+	}
+	fmt.Printf("Update data success, affected rows:%d\n", n)
+}
+
+// 删除数据
+func deleteRow(sqlStr string, args interface{}) {
+	ret, err := db.Exec(sqlStr, args)
+	if err != nil {
+		fmt.Printf("Delete data failed, err:%v\n", err)
+		return
+	}
+	n, err := ret.RowsAffected() // 操作影响的行数
+	if err != nil {
+		fmt.Printf("Get RowsAffected failed, err:%v\n", err)
+		return
+	}
+	fmt.Printf("Delete data success, affected rows:%d\n", n)
+}
+
 func main() {
 	err := initDB()
 	if err != nil {
@@ -64,10 +109,37 @@ func main() {
 
 	fmt.Println("Connect to database success...")
 
+	// 查询单个数据
 	sqlStr1 := "select id, name, age from user where id = ?"
-
 	sqlxQuerySingle(sqlStr1, 1)
 
+	// 查询多个数据
 	sqlStr2 := "select id, name, age from user where id > ?"
 	sqlxQueryMulti(sqlStr2, 0)
+
+	// 插入数据
+	sqlStr3 := "insert into user(name, age) values (?,?)"
+	data := []interface{}{
+		"Peter",
+		34,
+	}
+	insertRow(sqlStr3, data...)
+
+	// 查询多个数据
+	sqlxQueryMulti(sqlStr2, 0)
+
+	// 更新数据
+	sqlStr4 := "update user set age=? where id = ?"
+	data = []interface{}{
+		37,
+		17, // "Peter", 37
+	}
+	updateRow(sqlStr4, data...)
+
+	// 查询多个数据
+	sqlxQueryMulti(sqlStr2, 0)
+
+	// 删除数据
+	sqlStr5 := "delete from user where id = ?"
+	deleteRow(sqlStr5, 17)
 }
