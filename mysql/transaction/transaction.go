@@ -63,7 +63,7 @@ func transactionHandle(sqlStr1, sqlStr2 string) {
 	affRow1, err := ret1.RowsAffected()
 	if err != nil {
 		tx.Rollback() // 回滚
-		fmt.Printf("exec ret1.RowsAffected() failed, err:%v\n", err)
+		fmt.Printf("Execute ret1.RowsAffected() failed, err:%v\n", err)
 		return
 	}
 
@@ -78,7 +78,7 @@ func transactionHandle(sqlStr1, sqlStr2 string) {
 	affRow2, err := ret2.RowsAffected()
 	if err != nil {
 		tx.Rollback() // 回滚
-		fmt.Printf("exec ret1.RowsAffected() failed, err:%v\n", err)
+		fmt.Printf("Execute ret2.RowsAffected() failed, err:%v\n", err)
 		return
 	}
 
