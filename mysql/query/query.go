@@ -20,7 +20,7 @@ type user struct {
 
 func initDB() (err error) {
 	// 数据库连接信息
-	dataSource := "root:123456@tcp(192.168.40.133:3306)/go_test"
+	dataSource := "root:123456@tcp(192.168.204.131:3306)/go_test"
 	// 连接数据库
 	/*
 		备注：
