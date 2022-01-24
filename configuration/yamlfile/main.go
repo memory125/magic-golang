@@ -27,4 +27,10 @@ func main() {
 		fmt.Printf("Unmarshal failed, error is: %v\n", err)
 	}
 	fmt.Printf("conf is %v \n", conf)
+	fmt.Println("=========MySQL===========")
+	fmt.Println("user: ", conf.Mysql.User)
+	fmt.Println("password: ", conf.Mysql.Password)
+	fmt.Println("host: ", conf.Mysql.Host)
+	fmt.Println("port: ", conf.Mysql.Port)
+	fmt.Println("database: ", conf.Mysql.Name)
 }
