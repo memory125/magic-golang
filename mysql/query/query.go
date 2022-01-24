@@ -3,7 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql" // init()
+	_ "github.com/go-sql-driver/mysql" // conf()
 )
 
 // MySQL - Query查询示例

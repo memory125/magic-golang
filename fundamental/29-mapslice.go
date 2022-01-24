@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main()  {
+func main() {
 	mapSlice1()
 	mapSlice2()
 }
@@ -13,7 +13,7 @@ func mapSlice1() {
 	for index, value := range mapSlice {
 		fmt.Printf("index:%d value:%v\n", index, value)
 	}
-	fmt.Println("after init")
+	fmt.Println("after conf")
 	// 对切片中的map元素进行初始化
 	mapSlice[0] = make(map[string]string, 10)
 	mapSlice[0]["name"] = "小王子"
@@ -29,7 +29,7 @@ func mapSlice2() {
 	// 声明一个键为string，值为string切片的map
 	var sliceMap = make(map[string][]string, 3)
 	fmt.Println(sliceMap)
-	fmt.Println("after init")
+	fmt.Println("after conf")
 	// 键
 	key := "中国"
 	value, ok := sliceMap[key]
