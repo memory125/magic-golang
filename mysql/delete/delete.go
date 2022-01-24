@@ -3,7 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql" // conf()
+	_ "github.com/go-sql-driver/mysql" // init()
 )
 
 // MySQL - Delete删除示例

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/go-sql-driver/mysql" // conf()
+	_ "github.com/go-sql-driver/mysql" // init()
 	"github.com/jmoiron/sqlx"
 )
 
