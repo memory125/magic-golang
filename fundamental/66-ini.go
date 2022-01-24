@@ -13,24 +13,24 @@ import (
 
 // MySQL配置结构体
 type MySQLConfig struct {
-	Address  string `inifile:"address"`
-	Port     int    `inifile:"port"`
-	Username string `inifile:"username"`
-	Password string `inifile:"password"`
+	Address  string `ini:"address"`
+	Port     int    `ini:"port"`
+	Username string `ini:"username"`
+	Password string `ini:"password"`
 }
 
 // Redis配置结构体
 type RedisConfig struct {
-	Host     string `inifile:"host"`
-	Port     int    `inifile:"port"`
-	Password string `inifile:"password"`
-	Database string `inifile:"database"`
+	Host     string `ini:"host"`
+	Port     int    `ini:"port"`
+	Password string `ini:"password"`
+	Database string `ini:"database"`
 }
 
 // Config配置结构体
 type Config struct {
-	MySQLConfig `inifile:"mysql"`
-	RedisConfig `inifile:"redis"`
+	MySQLConfig `ini:"mysql"`
+	RedisConfig `ini:"redis"`
 }
 
 func loadIniConfig(fileName string, data interface{}) error {
@@ -84,7 +84,7 @@ func loadIniConfig(fileName string, data interface{}) error {
 			// 根据字符串sectionName去data里面根据反射找到对应的结构体
 			for i := 0; i < t.Elem().NumField(); i++ {
 				field := t.Elem().Field(i)
-				if sectionName == field.Tag.Get("inifile") {
+				if sectionName == field.Tag.Get("ini") {
 					structName = field.Name
 					fmt.Printf("Find=====>section name is %v, struct name is %v.\n", sectionName, structName)
 				}
@@ -124,8 +124,8 @@ func loadIniConfig(fileName string, data interface{}) error {
 			for i := 0; i < structType.NumField(); i++ {
 				fieldTemp := structType.Field(i) // tag信息存储在类型信息中
 				fieldType = fieldTemp
-				fmt.Println("Debug====3.3========>", fieldTemp, fieldTemp.Tag.Get("inifile"), fieldTemp.Name, iniKey)
-				if fieldTemp.Tag.Get("inifile") == iniKey {
+				fmt.Println("Debug====3.3========>", fieldTemp, fieldTemp.Tag.Get("ini"), fieldTemp.Name, iniKey)
+				if fieldTemp.Tag.Get("ini") == iniKey {
 					// 找到对应的字段
 					fieldName = fieldTemp.Name
 					break
@@ -184,9 +184,9 @@ func loadIniConfig(fileName string, data interface{}) error {
 
 func main() {
 	var conf Config
-	err := loadIniConfig("D:\\project\\go\\gopath\\src\\code.wing.com\\fundamental\\conf.inifile", &conf)
+	err := loadIniConfig("D:\\project\\go\\gopath\\src\\code.wing.com\\fundamental\\conf.ini", &conf)
 	if err != nil {
-		fmt.Printf("load inifile config file failed, error is %v.\n", err)
+		fmt.Printf("load ini config file failed, error is %v.\n", err)
 		return
 	}
 	//fmt.Printf("MySQL config are: address = %s, port = %d, username = %s, password = %s.\n", conf.MySQLConfig.Address, conf.MySQLConfig.Port, conf.MySQLConfig.Username, conf.MySQLConfig.Password)

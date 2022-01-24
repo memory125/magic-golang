@@ -16,8 +16,8 @@ import (
     2. 反序列化时要传递指针！！！
 */
 type personInfo1 struct {
-	Name string `json:"name" db:"name" inifile:"name"`
-	Age  int    `json:"age" db:"age" inifile:"age"`
+	Name string `json:"name" db:"name" ini:"name"`
+	Age  int    `json:"age" db:"age" ini:"age"`
 }
 
 func main() {
