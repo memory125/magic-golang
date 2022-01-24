@@ -13,26 +13,25 @@ import (
 
 // MySQL配置结构体
 type MySQLConfig struct {
-	Address string   `ini:"address"`
-	Port int         `ini:"port"`
-	Username string  `ini:"username"`
-	Password string  `ini:"password"`
+	Address  string `inifile:"address"`
+	Port     int    `inifile:"port"`
+	Username string `inifile:"username"`
+	Password string `inifile:"password"`
 }
 
 // Redis配置结构体
 type RedisConfig struct {
-	Host string   	 `ini:"host"`
-	Port int         `ini:"port"`
-	Password string  `ini:"password"`
-	Database string  `ini:"database"`
+	Host     string `inifile:"host"`
+	Port     int    `inifile:"port"`
+	Password string `inifile:"password"`
+	Database string `inifile:"database"`
 }
 
 // Config配置结构体
 type Config struct {
-	MySQLConfig  `ini:"mysql"`
-	RedisConfig  `ini:"redis"`
+	MySQLConfig `inifile:"mysql"`
+	RedisConfig `inifile:"redis"`
 }
-
 
 func loadIniConfig(fileName string, data interface{}) error {
 	// 0. 参数的校验
@@ -40,12 +39,12 @@ func loadIniConfig(fileName string, data interface{}) error {
 	t := reflect.TypeOf(data)
 	//fmt.Println(t.Kind())
 	if t.Kind() != reflect.Ptr {
-		err := errors.New("data parameter should be a pointer")    // 新创建一个错误
+		err := errors.New("data parameter should be a pointer") // 新创建一个错误
 		return err
 	}
 	// 0.2 传递的data参数必须时结构体类型(因为配置文件中有键值对需要赋值给结构体的字段)
 	if t.Elem().Kind() != reflect.Struct {
-		err := errors.New("data parameter should be a struct pointer")    // 新创建一个错误
+		err := errors.New("data parameter should be a struct pointer") // 新创建一个错误
 		return err
 	}
 	// 1. 读文件得到字节类型的数据
@@ -67,25 +66,25 @@ func loadIniConfig(fileName string, data interface{}) error {
 		}
 
 		// 2.1 如果是注释跳过
-		if strings.HasPrefix(line, ";") || strings.HasPrefix(line, "#")  {
+		if strings.HasPrefix(line, ";") || strings.HasPrefix(line, "#") {
 			continue
 		}
 		// 2.2 如果时”[“开头说明时unit
 		if strings.HasPrefix(line, "[") {
-			if line[0] != '[' || line[len(line) - 1] != ']'{
-				err = fmt.Errorf("line:%d syntax error", index + 1)
+			if line[0] != '[' || line[len(line)-1] != ']' {
+				err = fmt.Errorf("line:%d syntax error", index+1)
 				return err
 			}
 			// 把这一行内首尾[]去掉，去掉首尾的空格，取到中间的内容
-			sectionName := strings.TrimSpace(line[1:len(line) - 1])
+			sectionName := strings.TrimSpace(line[1 : len(line)-1])
 			if len(sectionName) == 0 {
-				err = fmt.Errorf("line:%d syntax error", index + 1)
+				err = fmt.Errorf("line:%d syntax error", index+1)
 				return err
 			}
 			// 根据字符串sectionName去data里面根据反射找到对应的结构体
 			for i := 0; i < t.Elem().NumField(); i++ {
 				field := t.Elem().Field(i)
-				if sectionName == field.Tag.Get("ini") {
+				if sectionName == field.Tag.Get("inifile") {
 					structName = field.Name
 					fmt.Printf("Find=====>section name is %v, struct name is %v.\n", sectionName, structName)
 				}
@@ -94,14 +93,14 @@ func loadIniConfig(fileName string, data interface{}) error {
 			// 2.3 如果不是”[“开头，则说明时”=“分割的键值对
 			// 1. 以等号分割这一行，等号左边是key，右边是value
 			idx := strings.Index(line, "=")
-			if idx == -1 || strings.HasPrefix(line, "="){
-				err = fmt.Errorf("line: %d syntax error", index + 1)
+			if idx == -1 || strings.HasPrefix(line, "=") {
+				err = fmt.Errorf("line: %d syntax error", index+1)
 				return err
 			}
 
 			// 获取key和value的内容
 			iniKey := strings.TrimSpace(line[:idx])
-			iniValue := strings.TrimSpace(line[idx + 1:])
+			iniValue := strings.TrimSpace(line[idx+1:])
 			fmt.Println("Debug====2========>", idx, iniKey, iniValue)
 
 			// 2. 根据structName去data里面把对应的嵌套结构体取出来
@@ -110,8 +109,8 @@ func loadIniConfig(fileName string, data interface{}) error {
 			fmt.Println("Debug====3========>", v)
 
 			// 获取结构体的名称和类型
-			structValue := v.Elem().FieldByName(structName)       // 嵌套结构体的值信息
-			structType := structValue.Type()                      // 嵌套结构体的类型信息
+			structValue := v.Elem().FieldByName(structName) // 嵌套结构体的值信息
+			structType := structValue.Type()                // 嵌套结构体的类型信息
 			fmt.Println("Debug====3.1========>", structValue, structType)
 
 			if structType.Kind() != reflect.Struct {
@@ -121,12 +120,12 @@ func loadIniConfig(fileName string, data interface{}) error {
 			var fieldName string
 			var fieldType reflect.StructField
 			// 3. 遍历嵌套结构体的每一个字段，判断tag是不是等于key
-			fmt.Println("Debug====3.2========>",structType.NumField())
+			fmt.Println("Debug====3.2========>", structType.NumField())
 			for i := 0; i < structType.NumField(); i++ {
-				fieldTemp := structType.Field(i)           // tag信息存储在类型信息中
+				fieldTemp := structType.Field(i) // tag信息存储在类型信息中
 				fieldType = fieldTemp
-				fmt.Println("Debug====3.3========>",fieldTemp, fieldTemp.Tag.Get("ini"), fieldTemp.Name, iniKey)
-				if fieldTemp.Tag.Get("ini") == iniKey  {
+				fmt.Println("Debug====3.3========>", fieldTemp, fieldTemp.Tag.Get("inifile"), fieldTemp.Name, iniKey)
+				if fieldTemp.Tag.Get("inifile") == iniKey {
 					// 找到对应的字段
 					fieldName = fieldTemp.Name
 					break
@@ -152,7 +151,7 @@ func loadIniConfig(fileName string, data interface{}) error {
 				valueInt, err = strconv.ParseInt(iniValue, 10, 64)
 				if err != nil {
 					// 如果解析出错
-					err = fmt.Errorf("line: %d value type error", index + 1)
+					err = fmt.Errorf("line: %d value type error", index+1)
 					return err
 				}
 				obj.SetInt(valueInt)
@@ -162,7 +161,7 @@ func loadIniConfig(fileName string, data interface{}) error {
 				valueBool, err = strconv.ParseBool(iniValue)
 				if err != nil {
 					// 如果解析出错
-					err = fmt.Errorf("line: %d value type error", index + 1)
+					err = fmt.Errorf("line: %d value type error", index+1)
 					return err
 				}
 				obj.SetBool(valueBool)
@@ -172,7 +171,7 @@ func loadIniConfig(fileName string, data interface{}) error {
 				valueFloat, err = strconv.ParseFloat(iniValue, 64)
 				if err != nil {
 					// 如果解析出错
-					err = fmt.Errorf("line: %d value type error", index + 1)
+					err = fmt.Errorf("line: %d value type error", index+1)
 					return err
 				}
 				obj.SetFloat(valueFloat)
@@ -183,11 +182,11 @@ func loadIniConfig(fileName string, data interface{}) error {
 	return nil
 }
 
-func main()  {
+func main() {
 	var conf Config
-	err := loadIniConfig("D:\\project\\go\\gopath\\src\\code.wing.com\\fundamental\\conf.ini", &conf)
+	err := loadIniConfig("D:\\project\\go\\gopath\\src\\code.wing.com\\fundamental\\conf.inifile", &conf)
 	if err != nil {
-		fmt.Printf("load ini config file failed, error is %v.\n", err)
+		fmt.Printf("load inifile config file failed, error is %v.\n", err)
 		return
 	}
 	//fmt.Printf("MySQL config are: address = %s, port = %d, username = %s, password = %s.\n", conf.MySQLConfig.Address, conf.MySQLConfig.Port, conf.MySQLConfig.Username, conf.MySQLConfig.Password)

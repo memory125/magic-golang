@@ -14,16 +14,16 @@ import (
    注意事项：
     1. 结构体内部的字段首字母要大写！！！不大写外部访问不到
     2. 反序列化时要传递指针！！！
- */
+*/
 type personInfo1 struct {
-	Name string `json:"name" db:"name" ini:"name"`
-	Age int     `json:"age" db:"age" ini:"age"`
+	Name string `json:"name" db:"name" inifile:"name"`
+	Age  int    `json:"age" db:"age" inifile:"age"`
 }
 
-func main()  {
+func main() {
 	p1 := personInfo1{
 		Name: "Gavin",
-		Age: 25,
+		Age:  25,
 	}
 
 	// 序列化
@@ -34,15 +34,15 @@ func main()  {
 
 	/*
 		{"name":"Gavin","age":25}
-	 */
+	*/
 	fmt.Println(string(b))
 
 	// 反序列化
 	str := `{"name": "Lee", "age": 36}`
 	var p2 personInfo1
-	json.Unmarshal([]byte(str), &p2)    // 传指针是为了在json.Unmarshal内部修改p2的值
+	json.Unmarshal([]byte(str), &p2) // 传指针是为了在json.Unmarshal内部修改p2的值
 	/*
 		p2: main.personInfo1{Name:"Lee", Age:36}
-	 */
+	*/
 	fmt.Printf("p2: %#v\n", p2)
 }
