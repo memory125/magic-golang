@@ -29,4 +29,17 @@
 
 ## URL参数
 - URL参数可以通过DefaultQuery()或Query()方法获取
-- DefaultQuery()若参数不村则，返回默认值，Query()若不存在，返回空串
+- DefaultQuery()若参数不存在，返回默认值，Query()若不存在，返回空串
+
+## 表单参数
+- 表单传输为post请求，http常见的传输格式为四种： 
+  - application/json
+  - application/x-www-form-urlencoded
+  - application/xml
+  - multipart/form-data
+- 表单参数可以通过PostForm()方法获取，该方法默认解析的是x-www-form-urlencoded或from-data格式的参数
+
+## 文件上传
+- `multipart/form-data`格式用于文件上传
+- gin文件上传与原生的`net/http`方法类似，不同在于gin把原生的request封装到`c.Request`中
+
