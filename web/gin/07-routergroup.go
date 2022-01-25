@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// gin - route group
+// gin - 路由组(router group)
 
 func main() {
 	// 1.创建路由
