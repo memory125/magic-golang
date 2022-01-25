@@ -9,7 +9,7 @@ import (
 // gin -router拆分
 
 // routerHandler 路由处理函数
-func routerHandler(c *gin.Context) {
+func routerHandler2(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Hello Router World!",
 	})
@@ -18,7 +18,7 @@ func routerHandler(c *gin.Context) {
 // 构造路由
 func setupRouter() *gin.Engine {
 	r := gin.Default()
-	r.GET("/test", routerHandler)
+	r.GET("/test", routerHandler2)
 	return r
 }
 
