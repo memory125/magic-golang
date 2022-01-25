@@ -8,10 +8,10 @@ import (
 // 文件上传
 
 func main() {
-	r := gin.Default()
+	router := gin.Default()
 	//限制上传最大尺寸
-	r.MaxMultipartMemory = 8 << 20
-	r.POST("/upload", func(c *gin.Context) {
+	router.MaxMultipartMemory = 8 << 20
+	router.POST("/upload", func(c *gin.Context) {
 		file, err := c.FormFile("file")
 		if err != nil {
 			c.String(500, "上传图片出错")
@@ -20,5 +20,5 @@ func main() {
 		c.SaveUploadedFile(file, file.Filename)
 		c.String(http.StatusOK, file.Filename)
 	})
-	r.Run(":8000")
+	router.Run(":8000")
 }

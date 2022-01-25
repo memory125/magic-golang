@@ -43,3 +43,5 @@
 - `multipart/form-data`格式用于文件上传
 - gin文件上传与原生的`net/http`方法类似，不同在于gin把原生的request封装到`c.Request`中
 
+## routes group
+- routes group是为了管理一些相同的URL
