@@ -43,5 +43,22 @@
 - `multipart/form-data`格式用于文件上传
 - gin文件上传与原生的`net/http`方法类似，不同在于gin把原生的request封装到`c.Request`中
 
-## routes group
+## routers group(路由组)
 - routes group是为了管理一些相同的URL
+
+## gin数据解析和绑定
+- Json 数据解析和绑定
+  - 客户端传参，后端接收并解析到结构体  
+- 表单数据解析和绑定
+- URI数据解析和绑定
+
+## gin渲染
+- 各种数据格式的响应
+  - Json、结构体、XML、YAML类似于java的properties、ProtoBuf  
+- HTML模板渲染
+  - gin支持加载HTML模板, 然后根据模板参数进行配置并返回相应的数据，本质上就是字符串替换
+  - `LoadHTMLGlob()`方法可以加载模板文件
+- 重定向 - `gin.context.redirect()`
+- 同步异步
+  - `goroutine`机制可以方便地实现异步处理
+  - 在启动新的`goroutine`时，不应该使用原始上下文，必须使用它的只读副本
