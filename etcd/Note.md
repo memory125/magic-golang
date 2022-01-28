@@ -4,14 +4,16 @@
 `go mod init`
 - 第二步
 `go mod tidy`时，出现下述错误：
-  `/etcd imports
+  ```bash
+  /etcd imports
   github.com/coreos/etcd/clientv3 tested by
   github.com/coreos/etcd/clientv3.test imports
   github.com/coreos/etcd/auth imports
   github.com/coreos/etcd/mvcc/backend imports
   github.com/coreos/bbolt: github.com/coreos/bbolt@v1.3.5: parsing go.mod:
   module declares its path as: go.etcd.io/bbolt
-  but was required as: github.com/coreos/bbolt`
+  but was required as: github.com/coreos/bbolt
+  ```
   
 ### 解决方案
 - 修改go.mod
