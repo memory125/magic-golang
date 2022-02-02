@@ -80,8 +80,27 @@
 - Cookie的使用
   - 测试服务端发送Cookie给客户端，客户端请求时携带Cookie
 - Cookie练习
+  - 模拟实现权限验证中间件
+    - 有2个路由，login和home
+    - login用于设置Cookie
+    - home是访问查看信息的请求
+    - 在请求home之前，先跑中间件代码，检验是否存在Cookie
+  - 访问home，会显示错误，因为权限校验未通过
 - Cookie的缺点
+  - 不安全，明文
+  - 增加带宽消耗
+  - 可以被禁用
+  - Cookie有上限
 - Sessions
+  - gorilla/sessions为自定义session后端提供cookie和文件系统session以及基础结构。
+  - 主要功能是： 
+    - 简单的API：将其用作设置签名（以及可选的加密）cookie的简便方法。
+    - 内置的后端可将session存储在cookie或文件系统中。
+    - Flash消息：一直持续读取的session值。
+    - 切换session持久性（又称“记住我”）和设置其他属性的便捷方法。
+    - 旋转身份验证和加密密钥的机制。
+    - 每个请求有多个session，即使使用不同的后端也是如此。
+    - 自定义session后端的接口和基础结构：可以使用通用API检索并批量保存来自不同商店的session。
 
 
 
