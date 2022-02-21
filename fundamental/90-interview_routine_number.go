@@ -14,6 +14,9 @@ import (
  通过chan实现：
 	evenCh：存放偶数
     oddCh：存放奇数
+ Chan:
+   c := make(chan int, 2): 有缓冲的channel，因此要注意“放”先于“取”
+   c := make(chan int): 无缓冲的channel，因此要注意“取”先于“放”
 */
 
 // 输出偶数
