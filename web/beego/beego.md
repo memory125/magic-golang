@@ -16,3 +16,6 @@
 
 ## 升级
 `go get -u github.com/astaxie/beego`
+
+## bee工具
+`go get github.com/astaxie/bee`

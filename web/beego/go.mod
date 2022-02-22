@@ -3,6 +3,7 @@ module wing.com/magic-golang/web/beego
 go 1.17
 
 require (
+	github.com/astaxie/bee v1.8.3 // indirect
 	github.com/astaxie/beego v1.12.3 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect
